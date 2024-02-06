@@ -8,10 +8,13 @@ int main(int argc, char** argv) {
 	int result;
     	Kokkos::View<int*> check("check", n);
 	// fill array
-    	Kokkos::parallel_reduce(“parallel sum”, check.extent(0), KOKKOS_LAMBDA(const int& i, int& lsum){
+	for(int i = 0; i<check.extent(0); i++){
+	  check(i) = i*i;
+	}
+    	Kokkos::parallel_reduce("parallel sum", check.extent(0), KOKKOS_LAMBDA(const int& i, int& lsum){
                     	lsum+=check(i);
             }, result);
-    	std::cout << “Result: “ << result << std::endl;
+    	std::cout << "Result: " << result << std::endl;
     	}
     	Kokkos::finalize();
     	return 0;

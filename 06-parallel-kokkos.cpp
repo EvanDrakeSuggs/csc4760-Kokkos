@@ -4,12 +4,13 @@
 int main(int argc, char** argv) {
     	Kokkos::initialize( argc, argv );
     	{
-	  Kokkos::View<int*> check(n);
-	  Kokkos::parallel_for (“iterator”, n, KOKKOS_LAMBDA(const int& i){
+	  int n = 16;
+	  Kokkos::View<int*> check("check", n);
+	  Kokkos::parallel_for("iterator", n, KOKKOS_LAMBDA(const int& i){
 	      check(i) = i*i;
 	    });
 	  struct Foo{
-	    void operator(const double& i, double& lsum){
+	    KOKKOS_INLINE_FUNCTION void operator() (const double& i, double& lsum) const{
 	      lsum+=i;
 	    }	};
 	  Foo functor;
