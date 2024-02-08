@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
 	      lsum+=i;
 	    }	};
 	  Foo functor;
-	  double result;
+	  double result = 0;
 	  Kokkos::parallel_reduce (n, functor, result);
 	  std::cout << "Result: " << result << std::endl;
 	  

@@ -1,6 +1,16 @@
 #include <Kokkos_Core.hpp>
 #include <iostream>
 
+template<typename View_t>
+void foo(View_t& buf){
+  std::cout << "View works!" << std::endl;
+}
+
+// why does this function cause an error?
+void bar(Kokkos::View<double*>& buf){
+  std::cout << "View works!" << std::endl;
+}
+
 int main(int argc, char** argv) {
     	Kokkos::initialize( argc, argv );
     	{
@@ -11,11 +21,9 @@ int main(int argc, char** argv) {
 	for(int i = 0; i<check.extent(0); i++){
 	  check(i) = i*i;
 	}
-    	Kokkos::parallel_reduce("parallel sum", check.extent(0), KOKKOS_LAMBDA(const int& i, int& lsum){
-                    	lsum+=check(i);
-            }, result);
-	Kokkos::fence();
-    	std::cout << "Result: " << result << std::endl;
+	// Which one of these works correctly
+	//foo(check);
+	//bar(check);
     	}
     	Kokkos::finalize();
     	return 0;
