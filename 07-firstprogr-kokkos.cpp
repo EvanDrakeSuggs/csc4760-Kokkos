@@ -5,7 +5,7 @@ int main(int argc, char** argv) {
     	Kokkos::initialize( argc, argv );
     	{
     	int n = 8;
-	int result;
+	int result = 0;
     	Kokkos::View<int*> check("check", n);
 	// fill array
 	for(int i = 0; i<check.extent(0); i++){

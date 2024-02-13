@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
     	Kokkos::initialize( argc, argv );
     	{
     	int n = 8;
-	int result;
+	int result = 0;
 	// what happens if 
 	Kokkos::View<char*> check("check", n);
 	//Kokkos::View<int*> check("check", n);
